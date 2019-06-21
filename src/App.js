@@ -1,6 +1,8 @@
 import React from 'react';
-import Stream  from './component/Stream';
-
+import Stream  from './component/Stream/index';
+import {Provider} from 'react-redux'
+import configureStore from './stores/configureStore';
+import * as actions from './actions'
 const tracks = [
   {
     title: 'Some track'
@@ -9,10 +11,14 @@ const tracks = [
     title: 'Some other track'
   }
 ];
+const store = configureStore()
+store.dispatch(actions.setTracks(tracks))
 function App() {
   return (
     <div className="App">
-      <Stream tracks={tracks}/>
+      <Provider store={store}>
+        <Stream tracks={tracks}/>
+      </Provider>
     </div>
   );
 }
